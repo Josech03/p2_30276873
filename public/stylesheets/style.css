@@ -1,8 +1,51 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+	background-color: #2374ba;
+	margin: 0px;
+	margin-left: 50px;
+	font: 17px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.todo{
+	background-color: white;
+	width: 957px;
+	height: 970px;
 }
 
-a {
-  color: #00B7FF;
+.datos{
+	background-color: #f2f2f2;
+	float: left;
+	width: 230px;
+	height: 950px;
+	padding: 10px;
+}
+.sobre{
+	background-color: white;
+	float:left;
+	width: 687px;
+	height:950px;
+	padding: 10px;
+}
+h1{
+	color: #2374ba;
+}
+h3{
+	color: #2374ba;
+	font-size: 20px;
+
+}
+a{
+	text-decoration:none;
+	color:#2374ba;
+}
+img{
+	padding: 5px;
+}
+hr{
+	color: white;
+}
+.cara{
+	padding: 25px;
+	float: center;
+	width: 175px;
+	background-image: linear-gradient(gray,#f2f2f2,#f2f2f2);
+	border-radius: 50%;
 }
