@@ -54,6 +54,16 @@
    	<h3>Experiencia Laboral</h3>
    	<hr>
    	<p>Sin experiencia laboral</p>
+   	<h3>Formulario de Contacto</h3>
+   	<hr>
+   	<form class="formulario" method='post'action='/'class="form">
+		<input class="controls" type="text" name="nombre"  placeholder="Ingrese su Nombre" value="<%= ct.nombre%>" required="true">
+		<input class="controls" type="email" name="email"  placeholder="Ingrese su Email" value="<%= ct.email%>"required="true">
+		<textarea class="controls" name="comentario"  cols="30" rows="7" placeholder="Ingrese un Comentario" value="<%= ct.comentario%>" requerid="true"></textarea>
+        <input type="hidden"  value="<%= ct.fecha%>">
+        <input type="hidden"  value="<%= ct.ip%>">
+		<input class="botons" type="submit" name="Enviar" value="Enviar">
+	</form>
    </div>
 </div>
 </body>

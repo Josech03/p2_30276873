@@ -1,0 +1,25 @@
+body{
+    font: 17px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.contenedor{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.tabla{
+    border: 2px solid #1f53c5;
+    text-align: center;
+}
+h1{
+    text-align: center;
+    color: #1f53c5;
+
+}
+th{
+    text-align: center;
+    color:#1f53c5;
+}
+td{
+    text-align: center;
+    color: #1f53c5;
+}
