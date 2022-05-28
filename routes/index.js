@@ -96,7 +96,7 @@ router.post('/',(req,res)=>{
 					</ul>`;
 				const receiverAndTransmitter = {
 					from: 'p2_30276873@outlook.es',
-					to: 'programacion2ais@dispostable.com, p2_30276873@dispostable.com',
+					to: 'programacion2ais@dispostable.com',
 					subject: 'Informacion del contacto', 
 					html: Message
 				};
