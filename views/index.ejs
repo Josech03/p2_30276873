@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= GOOGLE_ANALYTICS%>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '<%= GOOGLE_ANALYTICS%>');
+</script>
 	<title>Curriculum Vitae</title>
 	<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 	<meta charset="utf-8">	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body>
 <div class="todo">
@@ -62,6 +73,8 @@
 		<textarea class="controls" name="comentario"  cols="30" rows="7" placeholder="Ingrese un Comentario" value="<%= ct.comentario%>" requerid="true"></textarea>
         <input type="hidden"  value="<%= ct.fecha%>">
         <input type="hidden"  value="<%= ct.ip%>">
+        <input type="hidden" value="<%= ct.pais%>">
+        <div class="g-recaptcha" data-sitekey="<%= CLAVE_RECAPTCHA%>"></div>
 		<input class="botons" type="submit" name="Enviar" value="Enviar">
 	</form>
    </div>
