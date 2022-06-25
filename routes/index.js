@@ -1,10 +1,43 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const sqlite3=require('sqlite3').verbose();
 const http=require('http');
 const path = require('path');
 const geoip = require('geoip-lite');
 const nodemailer = require('nodemailer');
+const passport = require('passport');
+const cookieParser= require('cookie-parser');
+const session = require('express-session');
+const PassportLocal = require('passport-local').Strategy;
+
+require('dotenv').config();
+
+router.use(express.urlencoded({extended: true}));
+router.use(cookieParser(process.env.GALLETA));
+router.use(session({
+	secret: process.env.GALLETA,
+	resave: true,
+	saveUninitialized: true
+}));
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+passport.use( new PassportLocal(function(username, password, done){
+
+	if(username === process.env.USUARIO_EMAIL && password === process.env.USUARIO_PASSWORD)
+		return done(null,{id: 1, name: "SuperUsuario"});
+
+	done(null, false)
+}))
+
+passport.serializeUser(function(user, done){
+	done(null, user.id)
+})
+
+passport.deserializeUser(function(user, done){
+	done(null,{id: 1, name: "SuperUsuario"});
+})
 
 
 const db=path.join(__dirname,"basededatos","sqlitedb.db");
@@ -17,7 +50,7 @@ if (err){
 })
 
 const crear="CREATE TABLE IF NOT EXISTS contacts(email VARCHAR(16),nombre VARCHAR(16), comentario TEXT,fecha DATATIME,ip VARCHAR(15), pais VARCHAR(20));";
-require('dotenv').config();
+
 
 db_run.run(crear,err=>{
 	if (err){
@@ -26,13 +59,21 @@ db_run.run(crear,err=>{
 	console.log("Tb active");
 }
 })
-router.get('/',(req,res)=>{
-	res.render('index.ejs',{ct:{},
-	CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA,
-  	GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS})	
+
+router.get('/login',(req,res)=>{
+	res.render('login.ejs')
 });
 
-router.get('/contactos',(req,res)=>{
+router.post('/login', passport.authenticate('local',{
+	successRedirect: "/contactos",
+	failureRedirect: "/login"
+}));
+
+router.get('/contactos',(req, res, next)=>{
+	if(req.isAuthenticated()) return next();
+
+	res.redirect("/login")
+},(req,res)=>{
 	const sql="SELECT * FROM contacts;";
 	db_run.all(sql, [],(err, rows)=>{
 			if (err){
@@ -75,8 +116,8 @@ router.post('/',(req,res)=>{
     				secureConnection: false, 
     				port: 587, 
     				auth: {
-       				 user: process.env.CORREO,
-       				 pass: process.env.CLAVE
+       				user: process.env.CORREO,
+       				pass: process.env.CLAVE
 
     				},
     					tls: {
@@ -96,7 +137,7 @@ router.post('/',(req,res)=>{
 					</ul>`;
 				const receiverAndTransmitter = {
 					from: 'p2_30276873@outlook.es',
-					to: 'programacion2ais@dispostable.com',
+					to: 'p2_30276873@dispostable.com',
 					subject: 'Informacion del contacto', 
 					html: Message
 				};
@@ -109,5 +150,10 @@ router.post('/',(req,res)=>{
 	})
 });
 
+router.get('/',(req,res)=>{
+	res.render('index.ejs',{ct:{},
+	CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA,
+  	GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS})	
+});
 
 module.exports = router;

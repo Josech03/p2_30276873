@@ -1,0 +1,37 @@
+body{
+	padding: 20px;
+	margin: 20px;
+}
+a{
+    text-decoration:none;
+    color:#2374ba;
+}
+h1{
+	color: #1f53c5;
+	text-align: center;
+}
+.Login{
+    width: 400px;
+    padding: 10px;
+    margin: auto;
+    border-radius: 4px;
+    font-family: Helvetica;
+
+}
+.Controls{
+    width: 93%;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border:1px solid #1f53c5;
+    color:black;
+}
+.Botons{
+    width: 100%;
+    background:#1f53c5;
+    border:none;
+    padding: 12px;
+    margin: 16px 0;
+    font-size: 16px;
+    color: white;
+}
